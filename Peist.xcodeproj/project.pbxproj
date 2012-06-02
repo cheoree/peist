@@ -18,6 +18,7 @@
 		1F63345015208DB900F8E482 /* PastedScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F63344F15208DB900F8E482 /* PastedScrollView.m */; };
 		1F80F2721558A01D002BBA6D /* locked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F80F2711558A01D002BBA6D /* locked@2x.png */; };
 		1F80F2751558A0E2002BBA6D /* unlocked@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F80F2741558A0E2002BBA6D /* unlocked@2x.png */; };
+		1F92B6E0157A213200F855DA /* git-start.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F92B6DF157A213200F855DA /* git-start.txt */; };
 		1F96A5E71530A3280094AB28 /* YeramiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F96A5E61530A3270094AB28 /* YeramiViewController.m */; };
 		1F96A5EB1531D87E0094AB28 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1F96A5EA1531D87E0094AB28 /* Default@2x.png */; };
 		1FB4334115217DC80028B17E /* ConfViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB4334015217DC80028B17E /* ConfViewController.m */; };
@@ -55,6 +56,7 @@
 		1F63344F15208DB900F8E482 /* PastedScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastedScrollView.m; sourceTree = "<group>"; };
 		1F80F2711558A01D002BBA6D /* locked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locked@2x.png"; sourceTree = "<group>"; };
 		1F80F2741558A0E2002BBA6D /* unlocked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "unlocked@2x.png"; sourceTree = "<group>"; };
+		1F92B6DF157A213200F855DA /* git-start.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "git-start.txt"; sourceTree = "<group>"; };
 		1F96A5E51530A3270094AB28 /* YeramiViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YeramiViewController.h; sourceTree = "<group>"; };
 		1F96A5E61530A3270094AB28 /* YeramiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YeramiViewController.m; sourceTree = "<group>"; };
 		1F96A5EA1531D87E0094AB28 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		1FDBA542150272F9005F87F2 = {
 			isa = PBXGroup;
 			children = (
+				1F92B6DF157A213200F855DA /* git-start.txt */,
 				1FDBA557150272F9005F87F2 /* Peist */,
 				1FDBA550150272F9005F87F2 /* Frameworks */,
 				1FDBA54E150272F9005F87F2 /* Products */,
@@ -281,6 +284,7 @@
 				1FD6A6D415578FEA00387545 /* unlocked.png in Resources */,
 				1F80F2721558A01D002BBA6D /* locked@2x.png in Resources */,
 				1F80F2751558A0E2002BBA6D /* unlocked@2x.png in Resources */,
+				1F92B6E0157A213200F855DA /* git-start.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

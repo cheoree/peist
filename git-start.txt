@@ -1,0 +1,8 @@
+git 안 쓰고 프로젝트를 어느 정도 진행 후 git 연동하기
+    로컬 git만 쓰면 홈 의 .git삭제
+    오거나이져 repositories등 관련 데이타 모두 삭제
+    xcode 재시작
+    오거나이져에 중앙 리파지터리 등록
+    xcode source control에서 커밋 (로컬 git 사용 완료됨)
+    오거나이져에서 remote에 origin이란 이름으로 중앙저장소 등록
+    셸에서 git push origin +master 실행하여 강제로 푸쉬
