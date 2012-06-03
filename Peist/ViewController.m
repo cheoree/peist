@@ -111,7 +111,7 @@
     }
     
     if ([self.pastedOriginal isEqualToString:pasted]) {
-        [self performSelectorOnMainThread:@selector(pasteDone) withObject:nil waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(pasteDone) withObject:nil waitUntilDone:NO];
         return;
     }
         
@@ -137,12 +137,6 @@
     self.pastedOriginal = pasted;
     
     [self cleanAndPasteWithWords];
-    
-    // 단어 하나면 띄우지 않음
-//    if (self.labelWords.count != 1) {
-//        UIFont *font = [UIFont fontWithName:@"Optima-Bold" size:36.0f];
-//        [self notiPasteWithWidth:160 height:80 msg:@"Pasted." font:font interval:1.50f];
-//    }
 }
 
 - (void)cleanAndPasteWithWords {
@@ -170,7 +164,7 @@
         self.lastPasted.text = [self getLastUpdatedTimeString];
     }
     
-    [self performSelectorOnMainThread:@selector(pasteDone) withObject:nil waitUntilDone:YES];
+    [self performSelectorOnMainThread:@selector(pasteDone) withObject:nil waitUntilDone:NO];
 }
 
 - (int)viewPasted {
@@ -237,9 +231,14 @@
             nextStartLeft = left + width + 4;
         }
         
-        [self performSelectorOnMainThread:@selector(addWordAtScrollView:) withObject:word waitUntilDone:YES];
+        [self.labelWords addObject:word];
         
+        [self.scrollView performSelectorOnMainThread:@selector(addSubview:) withObject:word waitUntilDone:NO];
+        
+        // 단어 하나하나 add될 때마다 바로 바로 보이고 싱크 맞도록 하려면 아래가 호출 되어야 함.
+        [word performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
     }
+    
     NSLog(@"words add end");
     return self.processedWords.count;
 }
@@ -255,10 +254,6 @@
     if (self.presentedViewController != nil && ![self.presentedViewController isKindOfClass:[WebViewController class]]) {
     }
     if (self.labelWords.count == 1 && self.userState.onthego && isNew) {
-//        if ([self.presentedViewController isKindOfClass:[WebViewController class]]) {
-//            NSLog(@"ok webview presented");
-//            [self.presentedViewController dismissModalViewControllerAnimated:NO];
-//        }
         [self showWebViewWithWord:self.searchBar.text];
     }
     
@@ -266,6 +261,7 @@
         UIFont *font = [UIFont fontWithName:@"Optima-Bold" size:36.0f];
         [self notiPasteWithWidth:160 height:80 msg:@"Pasted." font:font interval:1.50f];
     }
+
     NSLog(@"pasteDone end");
 }
 
@@ -284,11 +280,6 @@
     WebViewController *webViewController = (WebViewController*)[self presentedViewController];
     [webViewController closeView];
     NSLog(@"closeWebView");
-}
-
-- (void)addWordAtScrollView:(WordLabel *)word {
-    [self.scrollView addSubview:word];
-    [self.labelWords addObject:word];
 }
 
 - (void)didReceiveMemoryWarning {
