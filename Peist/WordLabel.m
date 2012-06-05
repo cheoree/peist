@@ -394,14 +394,10 @@ NSInteger const DEFAULT_FONT_SIZE = 21;
     
     if (state) {
         CGRect oldFrame = self.frame;
-        
-//        self.textColor = [UIColor whiteColor];
-//        [self setBackgroundColor:[[UIColor alloc] initWithRed:0.0f/255.0f green:51.0f/255.0f blue:153.0f/255.0f alpha:1]];
 
         self.textColor = [UIColor blackColor];
         [self setBackgroundColor:[[UIColor alloc] initWithRed:255.0f/255.0f green:230.0f/255.0f blue:70.0f/255.0f alpha:1]];
 
-        
         self.frame = CGRectMake(self.center.x, self.center.y, 0, 0);
         
         // gloss effect 시 텍스트가 가려지는 현상 때문에 추가
@@ -469,22 +465,19 @@ NSInteger const DEFAULT_FONT_SIZE = 21;
     [[self delegate] wordTouched:self];
 }
 
-/*
- // Only override drawRect: if you perform custom drawing.
- // An empty implementation adversely affects performance during animation.
- - (void)drawRect:(CGRect)rect
- {
- // Drawing code
- }
- */
-
+// 단어 배경색이 검정이 랜덤하게 한두개씩 나타나는 현상 때문에 수정
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (!self.isTapped && self.backgroundColor == nil) {
+        self.backgroundColor = self.superview.backgroundColor;
+    }
+}
 
 - (void)drawRect:(CGRect)rect 
 {
     // gloss effect는 탭 할 때만
     if (self.isTapped) {
         [super drawRect:rect];
-        
         
         CGContextRef currentContext = UIGraphicsGetCurrentContext();
         
@@ -507,8 +500,10 @@ NSInteger const DEFAULT_FONT_SIZE = 21;
         CGGradientRelease(glossGradient);
         CGColorSpaceRelease(rgbColorspace);
     } else {
+        self.backgroundColor = nil;
         [super drawRect:rect];
     }
+
 }
 
 

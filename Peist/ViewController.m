@@ -203,7 +203,7 @@
         NSString *wordTitle = [self.processedWords objectAtIndex:i];
         
         WordLabel *word = [[WordLabel alloc] initWithFrame:rect title:wordTitle fontName:fontName fontSize:fontSize];
-        
+
         word.delegate = self;
         
         int left = word.frame.origin.x;
@@ -231,16 +231,23 @@
             nextStartLeft = left + width + 4;
         }
         
+        // 이것도 쓰레드에 포함하면 스크롤뷰의 높이를 알 수 없게 될 수 있음, 아래 메인쓰레드 수행을 각각 대기 하지 않는 것으로 해야 빠른데, 그럴 경우 이 문장만은 순차적으로 수행되어야 함
         [self.labelWords addObject:word];
         
-        [self.scrollView performSelectorOnMainThread:@selector(addSubview:) withObject:word waitUntilDone:NO];
+        [self performSelectorOnMainThread:@selector(addWordOnScrollView:) withObject:word waitUntilDone:NO];
         
-        // 단어 하나하나 add될 때마다 바로 바로 보이고 싱크 맞도록 하려면 아래가 호출 되어야 함.
-        [word performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:NO];
+        word = nil;
     }
     
     NSLog(@"words add end");
     return self.processedWords.count;
+}
+
+- (void)addWordOnScrollView:(WordLabel *) word {
+    [self.scrollView addSubview:word];
+    // 단어 하나하나 add될 때마다 바로 바로 보이고 싱크 맞도록 하려면 아래가 호출 되어야 함.
+    // 추가로, 대량 붙여넣기 시 한두개씩 랜덤하게 배경색이 검정이 되는 현상 수정을 위해 WordLabel의 layoutSubviews를 override하여 백그라운드 세팅을 거기서도 함.
+    [word setNeedsDisplay];
 }
 
 - (void)pasteDone {
