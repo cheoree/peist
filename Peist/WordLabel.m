@@ -342,15 +342,16 @@ NSInteger const DEFAULT_FONT_SIZE = 21;
  버튼 타이틀과 사이즈를 인자로 모두 받을 수 있는 initializer
  */
 - (id)_initWithFrame:(CGRect)frame title:(NSString *)title fontName:(NSString *)fontName fontSize:(CGFloat)fontSize {
+    isFirst = YES;
     self.userInteractionEnabled = YES;
     
     self.text = title;
     
-    UIWindow *frontWindow = [[UIApplication sharedApplication] keyWindow];
-    ViewController *viewController = (ViewController *)frontWindow.rootViewController;
-    self.backgroundColor = viewController.scrollView.backgroundColor;
-    frontWindow = nil;
-    viewController = nil;
+//    UIWindow *frontWindow = [[UIApplication sharedApplication] keyWindow];
+//    ViewController *viewController = (ViewController *)frontWindow.rootViewController;
+//    self.backgroundColor = viewController.scrollView.backgroundColor;
+//    frontWindow = nil;
+//    viewController = nil;
     
     if (fontSize != 0) {
         self.fontSize = fontSize;
@@ -385,6 +386,11 @@ NSInteger const DEFAULT_FONT_SIZE = 21;
     UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] init];
     [longPressRecognizer addTarget:self action:@selector(longPressed)];
     [self addGestureRecognizer:longPressRecognizer];
+    
+    // 장문 붙여넣기 붙여넣는 단어마다 바로바로 보이고 빠르게 싱크되어 나타내기 - 배경색이 랜덤하게 한두개씩 배경이 검정색(nil)로 세팅되는 현상 방지용
+    UIWindow *frontWindow = [[UIApplication sharedApplication] keyWindow];
+    ViewController *viewController = (ViewController *)frontWindow.rootViewController;
+    self.backgroundColor = viewController.scrollView.backgroundColor;
     
     return self;
 }
@@ -465,14 +471,6 @@ NSInteger const DEFAULT_FONT_SIZE = 21;
     [[self delegate] wordTouched:self];
 }
 
-// 단어 배경색이 검정이 랜덤하게 한두개씩 나타나는 현상 때문에 수정
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (!self.isTapped && self.backgroundColor == nil) {
-        self.backgroundColor = self.superview.backgroundColor;
-    }
-}
-
 - (void)drawRect:(CGRect)rect 
 {
     // gloss effect는 탭 할 때만
@@ -500,7 +498,13 @@ NSInteger const DEFAULT_FONT_SIZE = 21;
         CGGradientRelease(glossGradient);
         CGColorSpaceRelease(rgbColorspace);
     } else {
-        self.backgroundColor = nil;
+        // 장문 붙여넣기 붙여넣는 단어마다 바로바로 보이고 빠르게 싱크되어 나타내기 - 배경색이 랜덤하게 한두개씩 배경이 검정색(nil)로 세팅되는 현상 방지용
+        if (isFirst) {
+            CGContextRef context = UIGraphicsGetCurrentContext();
+            CGContextSetFillColor(context, CGColorGetComponents( [self.superview.backgroundColor CGColor]));
+            CGContextFillRect(context, rect);
+            isFirst = NO;
+        }
         [super drawRect:rect];
     }
 

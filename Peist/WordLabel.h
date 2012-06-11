@@ -11,6 +11,7 @@
 @protocol WordLabelDelegate;
 @interface WordLabel : UILabel {
     bool isTapped;
+    bool isFirst;
     id delegate;
 }
 @property (nonatomic) bool isTapped;
