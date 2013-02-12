@@ -1,6 +1,6 @@
 //
 //  DevInfoViewControllerViewController.m
-//  Bootigo
+//  Peist
 //
 //  Created by 배 철희 on 12. 5. 1..
 //  Copyright (c) 2012년 me. All rights reserved.
@@ -32,7 +32,7 @@
         
         mailer.mailComposeDelegate = self;
         
-        [mailer setSubject:@"[Bootigo 1.2] 사용자 문의 및 제안"];
+        [mailer setSubject:@"[Peist 1.3] 사용자 문의 및 제안"];
         
         NSArray *toRecipients = [NSArray arrayWithObjects:@"ditty@hanmail.net", nil];
         [mailer setToRecipients:toRecipients];
