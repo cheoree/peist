@@ -1,4 +1,4 @@
-Bootigo
+Peist
 =======
 
-붙이고 영한사전, paste and dictionary
+붙여넣는 영어사전 Peist 아이폰 앱
